@@ -29,8 +29,8 @@ $('.shopping-item-toggle').each(function () {
     $thisButton.on('click', event => {
         event.stopPropagation();
         $(this).closest("li span.shopping-item").toggleClass('shopping-item__checked');
-        //Can toggle class for li or for the check text in the button itself, but not for the shopping-item text.
-        //why?
+        //Can toggle class for li or for the check text in the button itself, but
+        //not for the shopping-item text. why?
     })
 }
 )
