@@ -1,12 +1,12 @@
 $(function () {
-    $("#js-shopping-list-form").submit(event => {
+    $("#js-shopping-list-form").on('submit', event => {
         event.preventDefault();
         /*
         take in the value from the input
         use it to create another shop item list object
         */
         itemName = $(this).find('input[name="shopping-list-entry').val();
-        $(".shopping-list").append(`
+        $("ul.shopping-list").append(`
        <li><span class="shopping-item">${itemName}</span>
        <div class="shopping-item-controls">
        <button class="shopping-item-toggle">
@@ -16,7 +16,7 @@ $(function () {
          <span class="button-label">delete</span>
        </button>
      </div>
-     </ul>`);
+     </li>`);
 
 
     })
@@ -26,11 +26,18 @@ $(function () {
 
 $('.shopping-item-toggle').each(function () {
     var $thisButton = $(this);
-    $thisButton.on('click', event => {
-        event.stopPropagation();
-        $(this).closest("li").find("span.shopping-item").toggleClass('shopping-item__checked');
-        //Can toggle class for li or for the check text in the button itself, but
-        //not for the span class="shopping-item" text. why?
+    //$thisButton.on('click', event => { //does not work for dynamically created items
+    $('ul.shopping-list').on('click', '.shopping-item-toggle', function(event){
+      event.stopPropagation();
+        $thisButton.parents("li").find("span.shopping-item").toggleClass('shopping-item__checked');
     })
 }
 )
+
+
+$('.shopping-item-delete').each(function() {
+  var $thisButton = $(this);
+  $thisButton.on('click', event => {
+    $thisButton.parents("li").remove();
+  })
+})
